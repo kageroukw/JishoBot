@@ -14,14 +14,15 @@ namespace JishoBot.Services
 
         public CredentialSetup()
         {
-            if (!File.Exists("/Data/credentials.json"))
+            if (!File.Exists("Data/credentials.json"))
             {
+                Console.WriteLine(Path.Combine(Directory.GetCurrentDirectory(), "Data/credentials.json"));
                 Console.WriteLine($"credentials.json not found!");
                 Environment.Exit(1);
             }
 
             var config = new ConfigurationBuilder();
-            config.AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "/Data/credentials.json"));
+            config.AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "Data/credentials.json"));
 
             var data = config.Build();
             Prefix = data[nameof(Prefix)];
