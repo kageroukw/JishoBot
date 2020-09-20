@@ -26,7 +26,27 @@ namespace JishoBot.Modules
             var response = await _search.GetResponseAsync($"https://jisho.org/api/v1/search/words?keyword={word}").ConfigureAwait(false);
             var result = JsonConvert.DeserializeObject<JObject>(response);
 
-            await Context.Message.Channel.EmbedAsync(new LocalEmbedBuilder().WithTitle($"{result["data"][0]["japanese"][0]["word"]} ({result["data"][0]["japanese"][0]["reading"]})").WithDescription($"Test")).ConfigureAwait(false);
+            var embed = new LocalEmbedBuilder()
+                .WithTitle($"Jisho:")
+                .WithDescription($"Word: {result["data"][0]["japanese"][0]["word"]}\n(Furigana: `{result["data"][0]["japanese"][0]["reading"]}`)")
+                .AddField("JLPT Level", result["data"][0]["jlpt"][0], true);
+
+            StringBuilder englishDefinitions = new StringBuilder();
+            foreach (var entry in result["data"][0]["senses"][0]["english_definitions"])
+            {
+                englishDefinitions.Append($"{entry}, ");
+            }
+
+            StringBuilder speechParts = new StringBuilder();
+            foreach (var entry in result["data"][0]["senses"][0]["parts_of_speech"])
+            {
+                speechParts.Append($"{entry}, ");
+            }
+
+            embed.AddField("English Meaning", englishDefinitions);
+            embed.AddField("Part of Speech", speechParts, true);
+
+            await Context.Message.Channel.EmbedAsync(embed).ConfigureAwait(false);
         }
     }
 }
