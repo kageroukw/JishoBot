@@ -18,6 +18,6 @@ namespace JishoBot.Extensions
         /// <param name="msg"></param>
         /// <returns></returns>
         public static Task<RestUserMessage> EmbedAsync(this IMessageChannel channel, LocalEmbedBuilder embed, string msg = "")
-            => channel.SendMessageAsync(msg, embed: embed.WithColor(Color.Green).Build());
+            => channel.SendMessageAsync(msg, embed: embed.WithColor(Color.LightGreen).Build());
     }
 }
