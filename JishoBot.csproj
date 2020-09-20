@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Disqord" Version="1.0.0-nightly-00066" />
+	<PackageReference Include="Disqord.Bot" Version="1.0.0-nightly-00066" />
+	<PackageReference Include="Disqord.Bot.Extended" Version="1.0.0" />
+	<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.7" />
+	<PackageReference Include="Qmmands" Version="3.1.3-nightly-00248" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.8" />
+  </ItemGroup>
+
+</Project>
