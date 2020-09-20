@@ -12,6 +12,8 @@ namespace JishoBot
 {
     public class Program
     {
+        public static ISearch Search { get; private set; }
+
         public static Task Main(string[] args)
         {
             var container = BuildServiceProvider();
@@ -24,13 +26,18 @@ namespace JishoBot
             var _creds = new CredentialSetup();
             return new ServiceCollection()
                 .AddSingleton<Jisho>()
-                .AddSingleton<ISearch>()
+                .AddSingleton<ISearch>(_ => new Search())
                 .AddSingleton(_ => new DefaultPrefixProvider().AddPrefix(_creds.Prefix).AddMentionPrefix())
                 .AddSingleton(container => new DiscordBotConfiguration
                 {
                     Logger = new ExtendedSimpleLogger(new ExtendedSimpleLoggerConfiguration
                     {
-                        EnableInformationLogSeverity = true
+                        EnableInformationLogSeverity = true,
+                        EnableDebugLogSeverity = false,
+                        EnableTraceLogSeverity = false,
+                        EnableCriticalLogSeverity = false,
+                        EnableErrorLogSeverity = true,
+                        EnableWarningLogSeverity = true
                     }),
 
                     ProviderFactory = _ => container
