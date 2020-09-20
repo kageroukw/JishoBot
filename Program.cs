@@ -6,6 +6,7 @@ using Disqord;
 using Disqord.Bot.Extended;
 using Disqord.Bot;
 using JishoBot.Services;
+using JishoBot.Services.Search;
 
 namespace JishoBot
 {
@@ -23,6 +24,7 @@ namespace JishoBot
             var _creds = new CredentialSetup();
             return new ServiceCollection()
                 .AddSingleton<Jisho>()
+                .AddSingleton<ISearch>()
                 .AddSingleton(_ => new DefaultPrefixProvider().AddPrefix(_creds.Prefix).AddMentionPrefix())
                 .AddSingleton(container => new DiscordBotConfiguration
                 {
